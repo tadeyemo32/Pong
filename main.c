@@ -31,14 +31,17 @@ int y;
 
 
 
-void initBoard(){
+void Menu(){
     
-    Paddle Paddle_Left = {PaddleWidth, PaddleHeight, 0, 400};
-    Paddle Paddle_Right = {PaddleWidth, PaddleHeight, ScreenWidth - PaddleWidth, 400};
 
-    DrawRectangle(Paddle_Left.x, Paddle_Left.y, Paddle_Left.width, Paddle_Left.height, RAYWHITE);
-    DrawRectangle(Paddle_Right.x, Paddle_Right.y, Paddle_Right.width, Paddle_Right.height, RAYWHITE);
+
+
 }
+
+
+
+
+
 
 
 
@@ -49,17 +52,17 @@ int main(void){
    
  
 
-    InitWindow(ScreenWidth, ScreenHeight, "Pong");
+InitWindow(ScreenWidth, ScreenHeight, "Pong");
+InitAudioDevice();
+    
 
-    SetTargetFPS(60);              
     while (!WindowShouldClose()) {
         
      
         BeginDrawing();
-        initBoard();
+       
 
             ClearBackground(BLACK);
-
 
         EndDrawing();
     
