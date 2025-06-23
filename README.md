@@ -11,7 +11,8 @@ Install Raylib via Homebrew:
 
 ```bash
 brew install raylib
-./make
+make 
+./game 
 ```
 
 ### Windows(MYSYS2) 
@@ -19,8 +20,8 @@ Install Raylib via Pacman
 
 ```bash
 pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-raylib
-make
-./game.exe
+make 
+./game.exe 
 ```
 
 ### Linux(Debian/Ubuntu)
