@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install raylib on Ubuntu (build from source)
+      - name: Install raylib on Ubuntu
         if: runner.os == 'Linux'
         run: |
           sudo apt update
