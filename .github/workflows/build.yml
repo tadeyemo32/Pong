@@ -1,0 +1,50 @@
+name: Cross-platform Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install raylib on Ubuntu (build from source)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update
+          sudo apt install -y git build-essential libgl1-mesa-dev libx11-dev libxcursor-dev libxrandr-dev libxi-dev libxinerama-dev libxxf86vm-dev
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib/src
+          make PLATFORM=PLATFORM_DESKTOP
+          sudo make install
+
+      - name: Install raylib via Homebrew on macOS
+        if: runner.os == 'macOS'
+        run: brew install raylib
+
+      - name: Install dependencies on Windows
+        if: runner.os == 'Windows'
+        run: |
+          choco install mingw
+          choco install make
+
+      - name: Download and extract raylib (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          curl -L -o raylib.zip https://github.com/raysan5/raylib/releases/download/4.5.0/raylib-4.5.0_win64_mingw-w64.zip
+          unzip raylib.zip -d raylib
+
+      - name: Set compiler for Windows
+        if: runner.os == 'Windows'
+        run: echo "CC=gcc" >> $GITHUB_ENV
+
+      - name: Build project
+        run: make
